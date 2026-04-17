@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        MVN = "C:\\tools\\maven\\bin\\mvn.cmd"
+        MVN = "mvn.cmd"
     }
 
     stages {
