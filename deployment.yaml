@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hospitalmanagement        # CHANGE: lowercase e.g. electricitybilling
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hospitalmanagement     # CHANGE: lowercase e.g. electricitybilling
+  template:
+    metadata:
+      labels:
+        app: hospitalmanagement   # CHANGE: lowercase e.g. electricitybilling
+    spec:
+      containers:
+      - name: hospitalmanagement  # CHANGE: lowercase e.g. electricitybilling
+        image: logeshhh4zz/hospitalmanagement:latest  # CHANGE: lowercase e.g. logeshhh4zz/electricitybilling:latest
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hospitalmanagement-service  # CHANGE: lowercase e.g. electricitybilling-service
+spec:
+  type: NodePort
+  selector:
+    app: hospitalmanagement         # CHANGE: lowercase e.g. electricitybilling
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      # IMPORTANT: Change nodePort for EVERY new project to avoid conflict!
+      # 1st project  -> 30008
+      # 2nd project  -> 30009
+      # 3rd project  -> 30010
+      # 4th project  -> 30011
+      nodePort: 30008              # CHANGE THIS NUMBER for each new project
